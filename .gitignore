@@ -8,7 +8,6 @@ __pycache__/
 # Django stuff:
 static_root/
 migrations/
-tiny_mce/
 local_settings.py
 
 # Environments
