@@ -1,0 +1,22 @@
+[uwsgi]
+
+base         = /home/adacumulators
+project      = ad_akumuliatoriai_lt
+home         = %(base)
+module       = %(project).wsgi:application
+
+plugins = python3
+
+master       = true
+processes    = 2
+listen       = 128
+
+socket       = 127.0.0.1:8000;
+chmod-socket = 666
+uid          = root
+gid          = root
+
+harakiri     = 600
+vacuum       = true
+
+die-on-term  = true

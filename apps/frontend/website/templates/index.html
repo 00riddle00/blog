@@ -1,0 +1,642 @@
+<html>
+    {% load i18n %}
+    {% get_current_language as LANGUAGE_CODE %}
+<head lang='{{ LANGUAGE_CODE }}'>
+    <meta charset="UTF-8">
+    {% if LANGUAGE_CODE == 'en' %}
+        <title>{{ metadata_en.title }}</title>
+        <meta name="description" content="{{ metadata_en.description }}">
+        <meta name="keywords" content="{{ metadata_en.keywords }}">
+    {% elif LANGUAGE_CODE == 'ru' %}
+        <title>{{ metadata_ru.title }}</title>
+        <meta name="description" content="{{ metadata_ru.description }}">
+        <meta name="keywords" content="{{ metadata_ru.keywords }}">
+    {% else %}
+        <title>{{ metadata.title }}</title>
+        <meta name="description" content="{{ metadata.description }}">
+        <meta name="keywords" content="{{ metadata.keywords }}">
+    {% endif %}
+
+
+    <meta name="csrf-token" content="FoRIwWvVF8QIXTlSjFALQd8cx2FMvAaodufp2WZ0"/>
+    <link
+    href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&subset=latin-ext,cyrillic' rel='stylesheet' type='text/css'>
+
+    {% load staticfiles %}
+
+    {% load compress %}
+    {% compress css %}
+    <link media="all" type="text/x-scss" rel="stylesheet" href="{% static "sass/master.scss" %}" />
+    {% endcompress %}
+
+    <link rel="shortcut icon" type="image/png" href="{% static "img/logo.ico" %}"/>
+
+    {% if host_by_lang == 'lt' %}
+    <meta name="google-site-verification" content="9XaH_SipEAZ4HdJbhPO7Fz2cbGdYlh3VMG2aiYQKdiw" />
+
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-70777022-1', 'auto');
+        ga('require', 'displayfeatures');
+        ga('send', 'pageview');
+    </script>
+    {% elif host_by_lang == 'lv' %}
+    <meta name="google-site-verification" content="TKN_X12KndeXwSeA2Wr0q2Q42v8geqg6TKhzaUr3H74" />
+
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-70777022-2', 'auto');
+        ga('require', 'displayfeatures');
+        ga('send', 'pageview');
+    </script>
+    {% elif host_by_lang == 'ee' %}
+    <meta name="google-site-verification" content="0XtPGab2g_5a_1B6vgWkg4CKoF2OVli7FAmbEXkja0E" />
+
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-70777022-3', 'auto');
+        ga('require', 'displayfeatures');
+        ga('send', 'pageview');
+    </script>
+    {% endif %}
+
+</head>
+<body>
+
+    <div id="header">
+       <div id="header-block">
+            <div id="logo">
+                <a href=".">
+                <img src="{% static "img/logo.png" %}" alt="logo"/>
+                </a>
+            </div>
+            <div id="flag-box">
+                <div id="flag-line">
+	            {% if host_by_lang == 'lv' %}
+                         <div class="flag">
+                            <a href="/lv/" >
+                                <img src="{% static "img/lv_flag.png" %}" alt="lv flag" />
+                            </a>
+                         </div>
+                         <div class="flag">
+                            <a href="/ru/" >
+                                <img src="{% static "img/ru_flag.png" %}" alt="ru flag" />
+                            </a>
+                         </div>
+                         <div class="flag">
+                            <a href="/en/" >
+                                <img src="{% static "img/gb_flag.png" %}" alt="en flag" />
+                            </a>
+                         </div>
+                         <div class="flag">
+                            <a href="/lt/" >
+                                <img src="{% static "img/lt_flag.png" %}" alt="lt flag" />
+                            </a>
+                         </div>
+                         <div class="flag">
+                            <a href="/et/" >
+                                <img src="{% static "img/et_flag.png" %}" alt="et flag" />
+                            </a>
+                         </div>
+		    {% else %}
+                        {% for lang in languages %}
+                            <div class="flag">
+                                <a href="/{{ lang.code }}/" >
+                                    <img src="{{ lang.image.url }}" alt="{{ lang.code }} flag" />
+                                </a>
+                            </div>
+                        {% endfor %}
+		    {% endif %}
+                </div>
+            </div>
+            <div id="lt-link-box">
+                <div id="link-text">{{ header_text.string }}</div>
+	        <div class="red-button" onclick="ga('send', 'event', 'button', 'click', '{{ header_button.string }}');">
+                    {% for block in content_blocks %}
+                        {% if block.id == 1 %}
+                            <a href="#{{ block.internal_link }}">{{ header_button.string }}</a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="slider">
+        <div id="slider-block" style="background-image: url('{{ slider.image.url }}')">
+            <div id="slider-box">
+		{% if LANGUAGE_CODE == 'ru' %}
+		    <style>
+		        .blokas:nth-child(4) {
+		            padding-bottom: 64px;
+                            padding-top: 13px;
+		        }
+		        .blokas:nth-child(5) {
+		            padding-bottom: 50px;
+		        }
+		    </style>
+		{% endif %}
+                {% for elem in sliderbox %}
+                <div class="blokas">
+                    <div class="slider-logo">{% if elem.image %}<img src="{{ elem.image.url }}" alt="slider-icon" >{% endif %}</div>
+                    <div class="slider-text">{{ elem.text | safe }}</div>
+                </div>
+                {% endfor %}
+            </div>
+            <div id="triangle"></div>
+        </div>
+    </div>
+    <div id="menu">
+        <div id="menu-block">
+            {% for block in content_blocks %}
+            <div class="button"><a href="#{{ block.internal_link }}">{{ block.title }}</a></div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="wrapper">
+        <div id="content">
+            {% for block in content_blocks %}
+                {% if block.id == 1 %}
+                    <div class="heading" id="{{ block.internal_link }}"><h1>{{ block.title }}</h1></div>
+                    <div class="content-block map-block">
+                        <div id="choose-city">{{ map_choose_city.string }}</div>
+                        <div id="dropdown">
+                            <div class="parent">
+                                <div id="chosen-city">{{ city_top }}</div>
+                                <div id="arrow"></div>
+                            </div>
+		    	      <div id="droplist">
+                                  <ul class ="child">
+                                    {% for city in city_list %}
+					{% if LANGUAGE_CODE == 'ru' %}
+    			                    <li onclick="ga('send', 'event', 'City', 'click', '{{ city.russian_name }}');">{{ city.russian_name }}</li>
+					{% else %}
+                                            <li id='{{ city.zoom }}' onclick="ga('send', 'event', 'City', 'click', '{{ city.name }}');">{{ city.name }}</li>
+					{% endif %}
+                                    {% endfor %}
+                                  </ul>
+			      </div>
+                        </div>
+                        <div class="map-form">
+                            <div id="map-canvas"></div>
+                                {% for shop in shop_list %}
+                                <div class="map-information-label" id="marker_{{ forloop.counter0 }}">
+                                    <div class="map-information-header">
+                                        <div class="marker-icon">
+                                            <img src="{% static "img/marker_active.png" %}" alt="marker_{{ forloop.counter0 }}">
+                                        </div>
+                                        <div class="header-button">
+                                            <div class="map-info-heading">{{ map_heading.string }}</div>
+                                        </div>
+                                        <div class="close-icon"></div>
+                                    </div>
+                                    <div class="map-information-content">
+                                        <div class="content-label-box">
+                                            <div class="content-label">
+                                                <div class="label-box">{{ map_company_name.string }}</div>
+                                                <div class="label-box">{{ shop.name }}</div>
+                                            </div>
+                                            <div class="content-label">
+                                                <div class="label-box">{{ map_city.string }}</div>
+                                                <div class="label-box">{{ shop.city }}</div>
+                                            </div>
+                                            <div class="content-label">
+                                                <div class="label-box">{{ map_address.string }}</div>
+                                                <div class="label-box">{{ shop.address }}</div>
+                                            </div>
+                                            <div class="content-label">
+                                                <div class="label-box">{{ map_contacts.string }}</div>
+                                                <div class="label-box">{{ shop.contacts }}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                {% elif block.id == 2 %}
+                    <div class="heading" id="{{ block.internal_link }}"><h1>{{ block.title }}</h1></div>
+                    <div class="content-block">
+                        <div id="image-ak"><img src="{{ battery.image.url }}" alt="Lorem-ipsum"></div>
+                        <div id="text">
+                            <div id="text-top">
+                                {{ content_block_text.string }}
+                            </div>
+                            <div id="text-bottom">
+                                <div class="number">1</div>
+                                <div class="number-text">{{ content_block_text_1.string }}</div>
+                                <div class="number">2</div>
+                                <div class="number-text">{{ content_block_text_2.string }}</div>
+                                <div class="number">3</div>
+                                <div class="number-text-more">{{ content_block_text_3.string }}</div>
+                            </div>
+                            <div class="read-more" onclick="ga('send', 'event', 'button', 'click', '{{ read_more.string }}');"><a href="{{ read_more_link.string }}">{{ read_more.string }}</a></div> 
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="heading" id="{{ block.internal_link }}"><h1>{{ block.title }}</h1></div>
+                    <div class="content-block">{{ block.content | safe }}</div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    <div style="clear: both"></div>
+
+
+    <h1>Welcome to the <strong>riddle</strong> Server!</h1>
+
+    <div class="content">
+        <p align="center">A logo that I identify myself with, a little<br>bit of Arch Linux and Pink Floyd together</p>
+
+        <div class="simple-logo">
+            <a href="http://tomasgiedraitis.com/"><img
+                    src="{% static "img/arch-logo-small.png" %}"
+                    alt="[ Powered by nginx ]"
+                    width="100" height="100" /></a>
+
+        </div>
+
+        <p align="center">An image of natural beauty that, acoording to the legend, was pretty much taken in the heaven on Earth.</p>
+
+        <div class="screenshot">
+            <a href="http://tomasgiedraitis.com/"><img
+                    src="{% static "img/arch.png" %}"
+                    alt="[ Powered by nginx ]"
+                    width="1000" height="562" /></a>
+        </div>
+
+
+
+
+
+        <div class="alert">
+            <h2>This site is very much under construction, or should I say, under complete laziness</h2>
+            <div class="content">
+                <h3>Random info for the curious mind</h3>
+                <br>
+                <h4>My ToDo list:</h4>
+                <p>* I'm really terrible at frontend. Learn frontend. Change this nginx default page at least in 10 years time.</p>
+                <p>* Basically all other things that I want to do.</p>
+
+                <br>
+                <h4>My Blog ideas (just ideas so far):</h4>
+                <p>* Random ramblings about why I started the blog.</p>
+                <p>* My personal knowledge base (has something to do with Atom and Markdown).</p>
+                <p>* My dotfiles and the least productive way to put them in version control.</p>
+                <p>* My ideas on learning and repetition, or why I procrastinate learning new stuff.</p>
+                <p>* My personal choice of programming multimedia (documentaries, books, etc).</p>
+                <p>* My personal choice of Sci-Fi multimedia (hey, you should watch Primer).</p>
+                <p>* A video we've made about IT projects (best work time tracked ever).</p>
+                <p>* My take on JSON schemas (I won't probably write about it. Just leaving it here seems to sound more competent.</p>
+                <p>* Automation that I try to do (My eternal war with computers and their own perception of the world).</p>
+                <p>* Mouseless linux (as well as Xless, or Xorgless linux, basically 100x worse than R.Stallman's workplace.</p>
+                <p>* My configs (just feeling friendly about sharing my configuration files, of course the link to Github would have been enough.</p>
+                <p>* Learning techniques (No, it's not about ML, it's about a very boring Human Mind learning, and yes, a second entry about learning (maybe I like to learn after all).</p>
+                <p>* Autokey - the tool I can quite live with.</p>
+                <p>* Theme switcher in Openbox.</p>
+                <p>* Not smart ideas (just ideas) for a smart home.</p>
+                <p>* vim + tmux, or why I am too sceptic of the Church of Emacs.</p>
+                <p>* Some normal topic, which would qualify as a blog entry, and not random brainstorming that includes all the entries above.</p>
+
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="alert">
+            <h2>Contact info:</h2>
+            <div class="content">
+                <p align="center"><strong>email</strong>: tomasgiedraitis@gmail.com</p>
+                <p align="center"><strong>mobile</strong>: +370 624 62239</p>
+                <p align="center"><strong>skype</strong>: tomas.giedraitis.94</p>
+            </div>
+        </div>
+        <br>
+        <p align="center"><strong>Other places that I frequently wander about:<strong></p>
+        <div class="logos">
+            <div class="logo">
+                <a href="https://www.facebook.com/tomas.giedraitis.1"><img
+                        src="{% static "img/fb.png" %}"
+                        alt="[ Powered by nginx ]"
+                        width="100" height="100" /></a>
+            </div>
+
+            <div class="logo">
+                <a href="https://twitter.com/tomasgiedraitis"><img
+                        src="{% static "img/twitter.png" %}"
+                        alt="[ Powered by nginx ]"
+                        width="100" height="100" /></a>
+            </div>
+
+            <div class="logo">
+                <a href="https://www.instagram.com/tomas_giedraitis/"><img
+                        src="{% static "img/insta.png" %}"
+                        alt="[ Powered by nginx ]"
+                        width="100" height="100" /></a>
+            </div>
+
+            <div class="logo">
+                <a href="https://www.linkedin.com/in/tomasgiedraitis/"><img
+                        src="{% static "img/lin.png" %}"
+                        alt="[ Powered by nginx ]"
+                        width="100" height="100" /></a>
+            </div>
+
+            <div class="logo">
+                <a href="https://github.com/00riddle00"><img
+                        src="{% static "img/github.png" %}"
+                        alt="[ Powered by nginx ]"
+                        width="100" height="100" /></a>
+            </div>
+
+            <div class="logo">
+                <a href="https://angel.co/tomas-giedraitis"><img
+                        src="{% static "img/angel.png" %}"
+                        alt="[ Powered by nginx ]"
+                        width="100" height="100" /></a>
+            </div>
+
+            <div class="logo">
+                <a href="https://www.f6s.com/tomasgiedraitis"><img
+                        src="{% static "img/f6s.png" %}"
+                        alt="[ Powered by nginx ]"
+                        width="100" height="100" /></a>
+            </div>
+
+            <div class="logo">
+                <a href="https://medium.com/@tomasgiedraitis"><img
+                        src="{% static "img/medium.png" %}"
+                        alt="medium"
+                        width="100" height="99" /></a>
+            </div>
+
+            <div class="logo">
+                <a href="https://plus.google.com/+TomasGiedraitis"><img
+                        src="{% static "img/gplus.png" %}"
+                        alt="[ Powered by nginx ]"
+                        width="100" height="100" /></a>
+            </div>
+
+            <div class="logo">
+                <a href="https://www.crunchbase.com/person/tomas-giedraitis"><img
+                        src="{% static "img/crunchbase.png" %}"
+                        alt="[ Powered by nginx ]"
+                        width="100" height="100" /></a>
+            </div>
+
+            <div class="logo">
+                <a href="https://www.freelancer.com.bd/u/tomasgiedraitis.html"><img
+                        src="{% static "img/freelancer.png" %}"
+                        alt="[ Powered by nginx ]"
+                        width="100" height="100" /></a>
+            </div>
+
+            <div class="logo">
+                <a href="https://www.youtube.com/channel/UCxhgMqszARyZE5611vgzzFA"><img
+                        src="{% static "img/youtube.png" %}"
+                        alt="[ Powered by nginx ]"
+                        width="100" height="100" /></a>
+            </div>
+
+            <div class="logo">
+                <a href="https://www.goodreads.com/user/show/24582419-tomas-giedraitis"><img
+                        src="{% static "img/goodreads.png" %}"
+                        alt="[ Powered by nginx ]"
+                        width="100" height="100" /></a>
+            </div>
+
+            <div class="logo">
+                <a href="https://www.reddit.com/user/Riddle00"><img
+                        src="{% static "img/reddit.png" %}"
+                        alt="[ Powered by nginx ]"
+                        width="100" height="100" /></a>
+            </div>
+
+            <div class="logo">
+                <a href="https://news.ycombinator.com/user?id=riddle00"><img
+                        src="{% static "img/hn.png" %}"
+                        alt="[ Powered by nginx ]"
+                        width="100" height="100" /></a>
+            </div>
+
+            <div class="logo">
+                <a href="https://www.quora.com/profile/Tomas-Giedraitis-1"><img
+                        src="{% static "img/quora.png" %}"
+                        alt="[ Powered by nginx ]"
+                        width="100" height="100" /></a>
+            </div>
+
+            <div class="logo">
+                <a href="https://soundcloud.com/tomas-giedraitis-2"><img
+                        src="{% static "img/soundcloud.png" %}"
+                        alt="[ Powered by nginx ]"
+                        width="100" height="100" /></a>
+            </div>
+
+            <div class="logo">
+                <a href="https://unix.stackexchange.com/users/204607/riddle00"> <img src="https://unix.stackexchange.com/users/flair/204607.png?theme=dark" width="208" height="58" alt="profile for Riddle00 at Unix &amp; Linux Stack Exchange, Q&amp;A for users of Linux, FreeBSD and other Un*x-like operating systems" title="profile for Riddle00 at Unix &amp; Linux Stack Exchange, Q&amp;A for users of Linux, FreeBSD and other Un*x-like operating systems"> </a>
+            </div>
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div id="footer">
+        {% if footer %}
+            <div id="footer-content">
+                {{ footer.text | safe }}
+            </div>
+        {% endif %}
+
+
+
+
+
+    </div>
+
+
+<script src="{% static "js/jquery.js" %}"></script>
+<script src="{% static "js/ajaxq.js" %}"></script>
+<script src="{% static "js/main.js" %}"></script>
+
+{% if LANGUAGE_CODE == 'ru' %}
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&amp;language=ru-RU"></script>
+{% else %}
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+{% endif %}
+
+<script type="text/javascript">
+jQuery.noConflict();
+
+(function ($) {
+
+    function initialize() {
+        var map_marker = "{% static "img/marker.png" %}";
+        var map_marker_active = "{% static "img/marker_active.png" %}";
+        var selected_marker;
+
+
+        var shopPositions = [
+            {% for shop in shop_list %}
+                new google.maps.LatLng({{ shop.location }}),
+            {% endfor %}
+        ];
+
+        markers = [
+            'marker_0',
+        ];
+
+        var mapPosition = new google.maps.LatLng({{ map_center }});
+
+        var mapOptions = {
+            center: mapPosition,
+            zoom: 12,
+            panControl: true,
+            zoomControl: true,
+            mapTypeControl: false,
+            scaleControl: false,
+            streetViewControl: true,
+            overviewMapControl: false
+        };
+
+
+        var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+
+         $('.parent').on('click', function (e) {                                           
+                e.stopPropagation();                                                          
+		$('#map-canvas').addClass('under');
+		$('.map-information-label').addClass('under');
+                $('#droplist').show();                                                        
+                $('#arrow').css("background-image", "url('/static/img/up_arrow.png')");       
+        });                                                                                   
+                                                                                              
+                                                                                              
+        $('body').not('.parent').on('click', function(){                                   
+		$('#map-canvas').removeClass('under');
+		$('.map-information-label').removeClass('under');
+                $('#droplist').hide();                                                        
+                $('#arrow').css("background-image", "url('/static/img/down_arrow.png')");     
+            });                                                                               
+                                                                                              
+         $('.child li').on('click', function () {
+                var city = $(this).html();
+                if (city == 'Türi') {
+                    city = 'Türi, Estonia'
+                } else if ( city == 'Kose') {
+                    city = 'Kose, Estonia'
+                }
+                var city_zoom = parseInt(this.id);
+                $('#map-canvas').removeClass('under');
+                $('.map-information-label').removeClass('under');
+                $('#droplist').hide();                                                        
+                $('#arrow').css("background-image", "url('/static/img/down_arrow.png')");     
+
+                if ( city == 'Türi, Estonia') {
+                    $('#chosen-city').html('Türi');                                                 
+                } else if ( city == 'Kose, Estonia') {
+                    $('#chosen-city').html('Kose');                                                 
+                } else {
+                    $('#chosen-city').html(city);                                                 
+                }
+
+                var geocoder = new google.maps.Geocoder();                                    
+
+                geocoder.geocode( { 'address': city}, function(results, status) {             
+                    if (status == google.maps.GeocoderStatus.OK) {                            
+                        map.setCenter(results[0].geometry.location);                          
+                        console.log(city_zoom);
+                        map.setZoom(city_zoom);                                                      
+                    }                                                                         
+                });                                                                           
+         });  
+
+
+        var shopIds = [
+            {% for shop in shop_list %}
+                {{ shop.id }},
+            {% endfor %}
+        ];
+
+        for (var i in shopIds) {
+             markers[i] = new google.maps.Marker({
+                position: shopPositions[i],
+                map: map,
+                icon: map_marker,
+                id: i
+             });
+
+         google.maps.event.addListener(markers[i], 'click', function () {
+             for (var i in shopIds) {
+                 markers[i].setIcon(map_marker);
+                 $('#marker_' + i).hide();
+            }
+
+             if (selected_marker == this.id) {
+                 this.setIcon(map_marker);
+                 $('#marker_' + this.id).fadeOut('slow', function() {});
+                 selected_marker = null;
+             } else {
+                 this.setIcon(map_marker_active);
+                 $('#marker_' + this.id).fadeIn('slow', function() {});
+                 selected_marker = this.id;
+             }
+         });
+
+         $('.close-icon').on('click', function () {
+             for (var i in shopIds) {
+                 markers[i].setIcon(map_marker);
+                 $('#marker_' + i).hide();
+             }
+
+             selected_marker = null;
+         });
+
+
+     }
+ }
+ google.maps.event.addDomListener(window, 'load', initialize);
+}(jQuery));
+
+</script>
+
+</body>
+</html>

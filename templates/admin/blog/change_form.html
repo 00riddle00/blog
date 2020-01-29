@@ -1,0 +1,45 @@
+{% extends "admin/change_form.html" %}
+{% block admin_change_form_document_ready %}
+    <script type="text/javascript">
+        (function($) {
+            $(document).ready(function() {
+                $('.add-another').click(function(e) {
+                    e.preventDefault();
+                    showAddAnotherPopup(this);
+                });
+                $('.related-lookup').click(function(e) {
+                    e.preventDefault();
+                    showRelatedObjectLookupPopup(this);
+                });
+                $('.file-upload > a').each(function () {
+                    $(this).css('content', 'url('+$(this).attr('href')+')');
+                    $(this).css('max-width', '150px');
+                });
+                $('a[href*="media"]').css('background-color', '#79aec8');
+            {% if adminform and add %}
+                $('form#{{ opts.model_name }}_form :input:visible:enabled:first').focus()
+            {% endif %}
+            });
+
+            $('#id_choose_city').keyup(function() {                                                
+                var city_name = $(this).val();                                                     
+                $('input[type="search"]').val(city_name);                                          
+                $('input[type="search"]').keydown();                                               
+            });                                                                                    
+                                                                                                   
+            $('#id_city').keyup(function() {                                                       
+                var city_name = $(this).val();                                                     
+                $('input[type="search"]').val(city_name);                                          
+                $('input[type="search"]').keydown();                                               
+            });                                                                                    
+                                                                                                   
+            $('#id_address').keyup(function() {                                                    
+                var city_name = $('#id_city').val();                                               
+                var city_address = $(this).val();                                                  
+                $('input[type="search"]').val(city_name + ', ' + city_address);                    
+                $('input[type="search"]').keydown();                                               
+            });      
+
+        })(django.jQuery);
+    </script>
+{% endblock %}

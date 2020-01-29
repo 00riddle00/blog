@@ -1,0 +1,35 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+
+# CSS
+.sass-cache
+
+# Django stuff:
+static_root/
+migrations/
+tiny_mce/
+local_settings.py
+
+# Environments
+env/
+venv/
+
+# IDE files
+.idea
+
+# Images
+*.ico
+*.gif
+*.jpg
+*.png
+
+
+# Vim
+*.swo
+*.swp
+*~
+
+# Environments
+env/
+venv/
